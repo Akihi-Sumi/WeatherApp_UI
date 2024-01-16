@@ -1,17 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity"
-    android:fitsSystemWindows="true">
+    android:scrollbarSize="0dp">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/dashFragmentContainerView"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parentLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_15sdp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/citySpinner"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="48dp"
+            android:entries="@array/cities_array"
+            app:layout_constraintEnd_toStartOf="@id/searchButton"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/searchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/searchButtonText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/citySpinner"
+            app:layout_constraintBottom_toBottomOf="@id/citySpinner"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/weatherCard"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@id/citySpinner">
+
+            <LinearLayout
+                android:id="@+id/locationView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/apiTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dummyTitle"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/_20ssp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dummyDate"
+                android:textColor="#9A938C"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintStart_toStartOf="@id/locationView"
+                app:layout_constraintTop_toBottomOf="@id/locationView" />
+
+            <ImageView
+                android:id="@+id/weatherIcon"
+                android:layout_width="143dp"
+                android:layout_height="139dp"
+                android:contentDescription="@string/weather_icon_descrp"
+                android:src="@drawable/dummy_icon_weather"
+                app:layout_constraintBottom_toBottomOf="@+id/weatherNumericView"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@id/weatherNumericView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/date"
+                app:layout_constraintTop_toTopOf="@id/weatherNumericView" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/weatherNumericView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_50sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/weatherIcon"
+                app:layout_constraintTop_toBottomOf="@id/date">
+
+                <TextView
+                    android:id="@+id/weatherNumericValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dummyWeather"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/_48ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/weatherUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/celsius"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintStart_toEndOf="@id/weatherNumericValue"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                android:id="@+id/weatherType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dummyWeatherType"
+                android:textColor="@color/textColor"
+                app:layout_constraintEnd_toEndOf="@id/weatherNumericView"
+                app:layout_constraintStart_toStartOf="@id/weatherNumericView"
+                app:layout_constraintTop_toBottomOf="@id/weatherNumericView" />
+
+
+            <LinearLayout
+                android:id="@+id/weatherDataLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/weatherType">
+
+                <TextView
+                    android:id="@+id/weatherDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:text="@string/dummyWeatherDescription"
+                    android:textSize="@dimen/_15ssp"
+                    android:background="#00000000"
+                    android:importantForAutofill="no" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/weather_data_row_style"
+                    android:padding="@dimen/_10sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/dummyWindDescription"
+                        android:textColor="@color/textColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/today"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/today"
+            android:textColor="@color/textColor"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@id/weatherCard"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tomorrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tomorrow"
+            android:clickable="false"
+            android:textColor="#D6996B"
+            android:layout_marginStart="@dimen/_20sdp"
+            app:layout_constraintStart_toEndOf="@id/today"
+            app:layout_constraintTop_toTopOf="@id/today"
+            app:layout_constraintBottom_toBottomOf="@id/today"/>
+
+        <TextView
+            android:id="@+id/day_after_tomorrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dayAfterTomorrow"
+            android:clickable="false"
+            android:textColor="#D6996B"
+            android:layout_marginStart="@dimen/_20sdp"
+            app:layout_constraintStart_toEndOf="@id/tomorrow"
+            app:layout_constraintTop_toTopOf="@id/tomorrow"
+            app:layout_constraintBottom_toBottomOf="@id/tomorrow"/>
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="#E2A272"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@id/today"/>
+
+        <View
+            android:id="@+id/indicator"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_5sdp"
+            android:background="@drawable/indicator_dot_style"
+            app:layout_constraintStart_toStartOf="@id/today"
+            app:layout_constraintEnd_toEndOf="@id/today"
+            app:layout_constraintTop_toTopOf="@id/separator"
+            app:layout_constraintBottom_toBottomOf="@id/separator"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

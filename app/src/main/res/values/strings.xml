@@ -1,12 +1,26 @@
 <resources>
     <string name="app_name">WeatherUI</string>
 
-    <string name="today">Today</string>
-    <string name="tomorrow">Tomorrow</string>
-    <string name="day_after_tomorrow">2 Days After</string>
+    <string name="searchButtonText">検索</string>
+
+    <string name="dummyDate">1月16日 火曜日</string>
+    <string name="weather_icon_descrp">Weather Icon</string>
+    <string name="dummyWeather">00</string>
+    <string name="celsius">°C</string>
+
+    <string name="today">今日</string>
+    <string name="tomorrow">明日</string>
+    <string name="dayAfterTomorrow">明後日</string>
 
     <string name="search_button_descrp">Search Button</string>
     <string name="setting_button_descrp">Setting button</string>
 
     <string name="dummyTitle">愛知県 名古屋市 の天気</string>
+
+    <string name="dummyWeatherType">晴れ</string>
+
+    <string name="dummyWeatherDescription">日本付近は、強い冬型の気圧配置となっています。\n\n　東海地方は、晴れまたは曇りで、雪や雨の降っている所があります。\n\n　１６日の東海地方は、強い冬型の気圧配置の影響で、晴れまたは曇りで雪の降る所があり、岐阜県では昼過ぎにかけて雷を伴う所があるでしょう。午後は次第に高気圧に覆われるため、おおむね晴れる見込みです。\n\n　１７日の東海地方は、高気圧に覆われるため晴れますが、夜は湿った空気の影響で雲が広がりやすいでしょう。</string>
+
+    <string name="wind">風</string>
+    <string name="dummyWindDescription">北西の風　やや強く　海上　では　北西の風　強く</string>
 </resources>
