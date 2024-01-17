@@ -17,6 +17,9 @@ import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +34,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val currentDate = Date()
+        val dateFormat = SimpleDateFormat("MMM/d(EEE)", Locale.getDefault())
+        binding.today.text = dateFormat.format(currentDate)
 
         // installSplashScreen()
 
@@ -54,9 +61,9 @@ class MainActivity : AppCompatActivity() {
             requestCityWeather()
         }
 
-        binding.today.setOnClickListener { changeWeatherToDay(R.id.today) }
-        binding.tomorrow.setOnClickListener { changeWeatherToDay(R.id.tomorrow) }
-        binding.dayAfterTomorrow.setOnClickListener { changeWeatherToDay(R.id.day_after_tomorrow) }
+//        binding.today.setOnClickListener { changeWeatherToDay(R.id.today) }
+//        binding.tomorrow.setOnClickListener { changeWeatherToDay(R.id.tomorrow) }
+//        binding.dayAfterTomorrow.setOnClickListener { changeWeatherToDay(R.id.day_after_tomorrow) }
     }
 
     private fun requestCityWeather() {
@@ -71,20 +78,28 @@ class MainActivity : AppCompatActivity() {
                 val weather = Json.decodeFromString<Weather>(responseBody)
 
                 val weatherTitle = weather.title
-                val weatherType = weather.forecasts?.get(0)?.detail?.weather
-                val weatherIcon = weather.forecasts?.get(0)?.image?.url
+                val weatherTodayType = weather.forecasts?.get(0)?.detail?.weather
+                val weatherTodayIcon = weather.forecasts?.get(0)?.image?.url
+                val weatherTomorrowType = weather.forecasts?.get(1)?.detail?.weather
+                val weatherTomorrowIcon = weather.forecasts?.get(1)?.image?.url
+                val weatherDatType = weather.forecasts?.get(2)?.detail?.weather
+                val weatherDatIcon = weather.forecasts?.get(2)?.image?.url
                 val weatherText = weather.description?.text
                 val weatherWind = weather.forecasts?.get(0)?.detail?.wind
 
-                if (weatherIcon != null) {
-                    Utils().fetchSVG(this, weatherIcon, binding.weatherIcon)
+                if (weatherTodayIcon != null && weatherTomorrowIcon != null && weatherDatIcon != null) {
+                    Utils().fetchSVG(this, weatherTodayIcon, binding.weatherTodayIcon)
+                    Utils().fetchSVG(this, weatherTomorrowIcon, binding.weatherTomorrowIcon)
+                    Utils().fetchSVG(this, weatherDatIcon, binding.weatherDatIcon)
                 }
 
                 handler.post {
                     binding.weatherTitle.text = weatherTitle
-                    binding.weatherType.text = weatherType
-                    binding.weatherText.text = weatherText
-                    binding.weatherWind.text = weatherWind
+                    binding.weatherTodayType.text = weatherTodayType
+                    binding.weatherTodayType.text = weatherTomorrowType
+                    binding.datWeatherDatType.text = weatherDatType
+//                    binding.weatherText.text = weatherText
+//                    binding.weatherWind.text = weatherWind
                 }
 
             }
@@ -112,24 +127,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeWeatherToDay(viewId: Int) {
-        setActiveTextColor(viewId)
-        changeIndicatorDotPosition(viewId)
-    }
+//    private fun changeWeatherToDay(viewId: Int) {
+//        setActiveTextColor(viewId)
+//        changeIndicatorDotPosition(viewId)
+//    }
 
-    private fun setActiveTextColor(activeViewId: Int) {
-        val activeColor = getColor(R.color.textColor)
-        val inactiveColor = Color.parseColor("#D6996B")
-        listOf(binding.today, binding.tomorrow, binding.dayAfterTomorrow).forEach {
-            it.setTextColor(if (it.id == activeViewId) activeColor else inactiveColor)
-        }
-    }
+//    private fun setActiveTextColor(activeViewId: Int) {
+//        val activeColor = getColor(R.color.textColor)
+//        val inactiveColor = Color.parseColor("#D6996B")
+//        listOf(binding.today, binding.tomorrow, binding.dayAfterTomorrow).forEach {
+//            it.setTextColor(if (it.id == activeViewId) activeColor else inactiveColor)
+//        }
+//    }
 
-    private fun changeIndicatorDotPosition(viewId: Int) {
-        val constraintSet = ConstraintSet()
-        constraintSet.clone(binding.parentLayout)
-        constraintSet.connect(R.id.indicator, ConstraintSet.START, viewId, ConstraintSet.START, 0)
-        constraintSet.connect(R.id.indicator, ConstraintSet.END, viewId, ConstraintSet.END, 0)
-        constraintSet.applyTo(binding.parentLayout)
-    }
+//    private fun changeIndicatorDotPosition(viewId: Int) {
+//        val constraintSet = ConstraintSet()
+//        constraintSet.clone(binding.parentLayout)
+//        constraintSet.connect(R.id.indicator, ConstraintSet.START, viewId, ConstraintSet.START, 0)
+//        constraintSet.connect(R.id.indicator, ConstraintSet.END, viewId, ConstraintSet.END, 0)
+//        constraintSet.applyTo(binding.parentLayout)
+//    }
 }
