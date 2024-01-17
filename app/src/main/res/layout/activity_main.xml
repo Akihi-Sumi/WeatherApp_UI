@@ -52,7 +52,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/apiTitle"
+                    android:id="@+id/weatherTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/dummyTitle"
@@ -137,7 +137,7 @@
                 app:layout_constraintTop_toBottomOf="@id/weatherType">
 
                 <TextView
-                    android:id="@+id/weatherDescription"
+                    android:id="@+id/weatherText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -154,6 +154,7 @@
                     android:padding="@dimen/_10sdp">
 
                     <TextView
+                        android:id="@+id/weatherWind"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
